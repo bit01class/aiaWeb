@@ -41,7 +41,9 @@ try{
 	rs=stmt.executeQuery(sql);
 	if(rs.next()){
 		%>
-		<h1><%=num %>번글 Detail Page</h1>
+		<h1><%=num %>번글 Edit Page</h1>
+		<form action="update.jsp">
+		<input type="hidden" name="num" value="<%=num %>">
 		<table border="1" cellspacing="0" width="80%">
 			<tr>
 				<td width="80" align="center">글번호</td>
@@ -53,18 +55,19 @@ try{
 			</tr>
 			<tr>
 				<td width="80" align="center">제목</td>
-				<td colspan="5"><%=rs.getString(3) %></td>
+				<td colspan="5"><input type="text" name="sub" value="<%=rs.getString(3) %>"></td>
 			</tr>
 			<tr>
-				<td colspan="6"><%=rs.getString(4).replace("\r\n","<br>") %></td>
+				<td colspan="6"><textarea name="content" cols="60" rows="10"><%=rs.getString(4) %></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="6" align="center">
-					<a href="edit.jsp?num=<%=num %>">[수 정]</a>
-					<a href="delete.jsp?num=<%=num %>">[삭 제]</a>
+					<input type="submit" value="수 정">
+					<input type="reset" value="취 소">
 				</td>
 			</tr>
 		</table>
+		</form>
 		<%
 	}
 }finally{
