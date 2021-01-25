@@ -55,6 +55,14 @@ try{
 }
 %>
 		</table>
+<center>
+	<form action="addguest.jsp">
+		글쓴이:
+		<input type="text" name="name" size="5">
+		<input type="text" name="content" size="45">
+		<input type="submit" value="입 력">
+	</form>
+</center>
 		
 				
 		</td>
