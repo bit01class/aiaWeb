@@ -22,22 +22,16 @@
 	<tr>
 		<td colspan="6">
 		<center>
-		<h1>BBS List Page</h1>
-		<table border="1" cellspacing="0" width="80%">
-			<tr>
-				<td width="80">글번호</td>
-				<td>제목</td>
-				<td width="120">글쓴이</td>
-				<td width="100">날짜</td>
-			</tr>
-<%@ page import="oracle.jdbc.driver.OracleDriver" %>
-<%@ page import="java.sql.*" %>
-<%
-String sql="select num,sub,name,nalja from bbs01 order by num desc";
+<%@ page import="oracle.jdbc.driver.OracleDriver,java.sql.*" %>
+		<%
+String num=request.getParameter("num");
+String sql="select name,nalja,sub,content from bbs01 where num="+num;
 String url="jdbc:oracle:thin:@localhost:1521:xe";
 String user="scott";
 String password="tiger";
-OracleDriver driver=new OracleDriver();
+
+new OracleDriver();
+
 Connection conn=null;
 Statement stmt=null;
 ResultSet rs=null;
@@ -45,24 +39,40 @@ try{
 	conn=DriverManager.getConnection(url, user, password);
 	stmt=conn.createStatement();
 	rs=stmt.executeQuery(sql);
-	while(rs.next()){
-%>			
+	if(rs.next()){
+		%>
+		<h1><%=num %>번글 Detail Page</h1>
+		<table border="1" cellspacing="0" width="80%">
 			<tr>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getInt(1) %></a></td>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getString(2) %></a></td>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getString(3) %></a></td>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getDate(4) %></a></td>
+				<td width="80" align="center">글번호</td>
+				<td align="center"><%=num %></td>
+				<td width="80" align="center">글쓴이</td>
+				<td align="center"><%=rs.getString(1) %></td>
+				<td width="80" align="center">날짜</td>
+				<td align="center"><%=rs.getDate(2) %></td>
 			</tr>
-<%
+			<tr>
+				<td width="80" align="center">제목</td>
+				<td colspan="5"><%=rs.getString(3) %></td>
+			</tr>
+			<tr>
+				<td colspan="6"><%=rs.getString(4).replace("\r\n","<br>") %></td>
+			</tr>
+			<tr>
+				<td colspan="6" align="center">
+					<a href="#">[수 정]</a>
+					<a href="#">[삭 제]</a>
+				</td>
+			</tr>
+		</table>
+		<%
 	}
 }finally{
 	if(rs!=null)rs.close();
 	if(stmt!=null)stmt.close();
 	if(conn!=null)conn.close();
-}
-%>
-		</table>
-		<a href="add.jsp">[입 력]</a>
+}		
+		%>
 		</center>		
 		</td>
 	</tr>

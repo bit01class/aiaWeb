@@ -22,47 +22,28 @@
 	<tr>
 		<td colspan="6">
 		<center>
-		<h1>BBS List Page</h1>
-		<table border="1" cellspacing="0" width="80%">
-			<tr>
-				<td width="80">글번호</td>
-				<td>제목</td>
-				<td width="120">글쓴이</td>
-				<td width="100">날짜</td>
+		<h1>BBS Insert Page</h1>
+		<form action="insert.jsp">
+		<table border="0">
+			<tr>		
+				<td width="100" bgcolor="gray" align="center">제 목</td>
+				<td><input type="text" name="sub" size="47"></td>
 			</tr>
-<%@ page import="oracle.jdbc.driver.OracleDriver" %>
-<%@ page import="java.sql.*" %>
-<%
-String sql="select num,sub,name,nalja from bbs01 order by num desc";
-String url="jdbc:oracle:thin:@localhost:1521:xe";
-String user="scott";
-String password="tiger";
-OracleDriver driver=new OracleDriver();
-Connection conn=null;
-Statement stmt=null;
-ResultSet rs=null;
-try{
-	conn=DriverManager.getConnection(url, user, password);
-	stmt=conn.createStatement();
-	rs=stmt.executeQuery(sql);
-	while(rs.next()){
-%>			
 			<tr>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getInt(1) %></a></td>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getString(2) %></a></td>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getString(3) %></a></td>
-				<td><a href="detail.jsp?num=<%=rs.getInt(1) %>"><%=rs.getDate(4) %></a></td>
+				<td bgcolor="gray" align="center">글쓴이</td>
+				<td><input type="text" name="name"></td>
 			</tr>
-<%
-	}
-}finally{
-	if(rs!=null)rs.close();
-	if(stmt!=null)stmt.close();
-	if(conn!=null)conn.close();
-}
-%>
+			<tr>
+				<td colspan="2" align="center"><textarea cols="60" rows="10" name="content"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="입 력">
+					<input type="reset" value="취 소">
+				</td>			
+			</tr>
 		</table>
-		<a href="add.jsp">[입 력]</a>
+		</form>
 		</center>		
 		</td>
 	</tr>
