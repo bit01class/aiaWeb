@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<meta http-equiv="refresh" content="0;url=http://localhost:8080/day02/guest.jsp">
+<meta http-equiv="refresh" content="5;url=http://localhost:8080/day02/guest.jsp">
 <title>Insert title here</title>
 </head>
 <body>
