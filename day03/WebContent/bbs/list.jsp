@@ -31,26 +31,57 @@
 				<th bgcolor="gray" width="100">글쓴이</th>
 				<th bgcolor="gray" width="100">날짜</th>
 			</tr>
-			
+<%@ page import="java.sql.*" %>
+<%
+String keyword=request.getParameter("word");
+String colname=request.getParameter("key");
+if(keyword==null) keyword="%";
+if(colname==null) colname="sub";
+
+String sql="select num,name,nalja,sub from bbs02 ";
+sql+=" where "+colname+" like '%"+keyword;
+sql+="%' order by num desc";
+
+
+String url="jdbc:oracle:thin:@localhost:1521:xe";
+String user="scott";
+String password="tiger";
+String driver="oracle.jdbc.driver.OracleDriver";
+
+Class.forName(driver);
+
+Connection conn=null;
+Statement stmt=null;
+ResultSet rs=null;
+try{
+	conn=DriverManager.getConnection(url, user, password);
+	stmt=conn.createStatement();
+	rs=stmt.executeQuery(sql);
+	while(rs.next()){
+%>
 			<tr>
-				<td>3</td>
-				<td>test3</td>
-				<td>tester</td>
-				<td>12/01</td>
+				<td><%=rs.getInt("num") %></td>
+				<td><%=rs.getString("sub") %></td>
+				<td><%=rs.getString("name") %></td>
+				<td><%=rs.getDate("nalja") %></td>
 			</tr>
-			<tr>
-				<td>2</td>
-				<td>test2</td>
-				<td>tester</td>
-				<td>12/01</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>test1</td>
-				<td>tester</td>
-				<td>12/01</td>
-			</tr>
+<%
+	}
+}finally{
+	if(rs!=null)rs.close();
+	if(stmt!=null)stmt.close();
+	if(conn!=null)conn.close();
+}
+%>
 		</table>
+		<form action="list.jsp">
+		<select name="key">
+			<option value="sub">제목</option>
+			<option value="name">글쓴이</option>
+		</select>
+		<input type="text" name="word">
+		<input type="submit" value="검색">
+		</form>
 		</center>
 		<!-- content end -->
 	</td>
