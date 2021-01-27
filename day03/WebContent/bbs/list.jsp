@@ -33,15 +33,30 @@
 			</tr>
 <%@ page import="java.sql.*" %>
 <%
+/* 
+select * from 
+  (select rownum as rn,num,sub,name from 
+  (select num,sub,name from bbs02 
+    where name='user1' order by num desc))
+where rn between 11 and 20;
+ */
+int total=0;
+int p=1;
+try{
+p=Integer.parseInt(request.getParameter("p"));
+}catch(NumberFormatException e){}
 String keyword=request.getParameter("word");
 String colname=request.getParameter("key");
 if(keyword==null) keyword="%";
 if(colname==null) colname="sub";
 
 String sql="select num,name,nalja,sub from bbs02 ";
-sql+=" where "+colname+" like '%"+keyword;
-sql+="%' order by num desc";
+sql+=" where "+colname+" like '%"+keyword+"%' ";
+sql+=" and num between (select max(num)-"+((p-1)*10+9)+" from bbs02) and (select max(num)-"+(p-1)*10+" from bbs02)";
+sql+=" order by num desc";
 
+
+System.out.println(sql);
 
 String url="jdbc:oracle:thin:@localhost:1521:xe";
 String user="scott";
@@ -55,6 +70,11 @@ Statement stmt=null;
 ResultSet rs=null;
 try{
 	conn=DriverManager.getConnection(url, user, password);
+	stmt=conn.createStatement();
+	rs=stmt.executeQuery("select count(*) from bbs02");
+	if(rs.next()) total=rs.getInt(1);
+	rs.close();
+	stmt.close();
 	stmt=conn.createStatement();
 	rs=stmt.executeQuery(sql);
 	while(rs.next()){
@@ -82,6 +102,36 @@ try{
 		<input type="text" name="word">
 		<input type="submit" value="°Ë»ö">
 		</form>
+		<%
+		int start=0,end=0;
+		if(total%10==0){
+			end=total/10;
+		}else{
+			end=total/10+1;
+		}
+		// p=1,2,3,4,5
+		start=(p-1)/5*5;
+		if(start+5<end){
+			end=start+5;
+		}
+		if(p>5){
+		%>
+		<a href="list.jsp?p=<%=start %>">¢¸</a>
+		<%
+		}
+		for(int i=start; i<end; i++){
+			if(p!=i+1){
+		%>
+		<a href="list.jsp?p=<%=i+1 %>">[<%=i+1 %>]</a>
+		<%
+			}else{
+				out.println("["+p+"]");
+			}
+		}
+		if(start+5<total/10+1){
+		%>
+		<a href="list.jsp?p=<%=end+1 %>">¢º</a>
+		<%} %>
 		</center>
 		<!-- content end -->
 	</td>
