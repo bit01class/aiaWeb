@@ -9,42 +9,19 @@
 </head>
 <body>
 <%
-String id=request.getParameter("id");
-String pw=request.getParameter("pw");
-
-String sql="select count(*) from user04 where id='"
-			+id+"' and pw='"+pw+"'";
-int result=0;
-try{
-	ResultSet rs=MyOracle.getConnection()
-						.createStatement()
-						.executeQuery(sql);
-	if(rs.next()) result=rs.getInt(1);
-}finally{
-	if(MyOracle.getConnection()!=null)
-		MyOracle.getConnection().close();
-}
-
-if(result>0){
-	// 로그인~~~
-	session.setAttribute("loginResult", true);
-	session.setAttribute("loginID", id);
-}else{
-	response.sendRedirect("login.jsp");
-}
+// 세션 갱신
+session.invalidate();
+// 세션 속성 삭제
+//session.removeAttribute("loginResult");
+// 세션 속성값 변경
+//session.setAttribute("loginResult", null);
 %>
 <table width="100%">
 	<tr>
 		<td><img src="../imgs/blue_logo.png"></td>
 		<td width="200">
-			<td width="200">
-			<%if(session.getAttribute("loginResult")==null){ %>
-				<a href="../join/login.jsp">[로그인]</a>/
-				<a href="../join/add.jsp">[회원가입]</a>
-			<%}else{ %>	
-				<a href="../join/logout.jsp">[로그아웃]</a>
-			<%} %>
-			</td>
+			<a href="login.jsp">[로그인]</a>/
+			<a href="add.jsp">[회원가입]</a>
 		</td>
 	</tr>
 	<tr>
@@ -58,7 +35,7 @@ if(result>0){
 	<tr>
 		<td colspan="2">
 			<center>
-			<h1>로그인 성공</h1>
+			<h1>로그아웃</h1>
 			
 			</center>
 		</td>

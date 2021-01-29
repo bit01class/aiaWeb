@@ -41,8 +41,14 @@ if(pw.equals(re)){
 	<tr>
 		<td><img src="../imgs/blue_logo.png"></td>
 		<td width="200">
-			<a href="login.jsp">[로그인]</a>/
-			<a href="add.jsp">[회원가입]</a>
+			<td width="200">
+			<%if(session.getAttribute("loginResult")==null){ %>
+				<a href="../join/login.jsp">[로그인]</a>/
+				<a href="../join/add.jsp">[회원가입]</a>
+			<%}else{ %>	
+				<a href="../join/logout.jsp">[로그아웃]</a>
+			<%} %>
+			</td>
 		</td>
 	</tr>
 	<tr>
