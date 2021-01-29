@@ -43,7 +43,18 @@
 				</tr>
 				<tr>
 					<td>±€æ¥¿Ã</td>
-					<td><input type="text" name="id"></td>
+<%
+String name="";
+Object obj=session.getAttribute("loginID");
+if(obj==null){
+
+%>
+					<td><input type="text" name="id" ></td>
+<%} else{
+name=(String)obj;
+%>
+					<td><%=name%><input type="hidden" name="id" value="<%=name%>"></td>
+<%} %>
 				</tr>
 				<tr>
 					<td></td>

@@ -16,6 +16,11 @@ request.setCharacterEncoding("euc-kr");
 String sub=request.getParameter("sub");
 String id=request.getParameter("id");
 String content=request.getParameter("content");
+
+if(session.getAttribute("loginID")!=null){
+	id=(String)session.getAttribute("loginID");
+}
+
 String sql="insert into bbs04 values (bbs04_seq.nextval,'"
 			+sub+"','"+id+"',0,'"+content+"')";
 try{

@@ -14,6 +14,8 @@ String pw=request.getParameter("pw");
 
 String sql="select count(*) from user04 where id='"
 			+id+"' and pw='"+pw+"'";
+
+System.out.println(sql);
 int result=0;
 try{
 	ResultSet rs=MyOracle.getConnection()
