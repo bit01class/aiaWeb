@@ -28,15 +28,17 @@
 	try{
 		conn=com.bit.util.MyOracle.getConnection();
 		pstmt=conn.prepareStatement(sql);
-		pstmt.setString(1,"%tester%");
+		pstmt.setString(1,"%");
 		rs=pstmt.executeQuery();
 		while(rs.next()){
-			Bbs06Bean bean=new Bbs06Bean();
-			bean.setNum(rs.getInt("num"));
-			bean.setSub(rs.getString("sub"));
-			bean.setName(rs.getString("name"));
-			bean.setNalja(rs.getDate("nalja1"));
-			list.add(bean);
+			if(rs.getInt("del")==0){
+				Bbs06Bean bean=new Bbs06Bean();
+				bean.setNum(rs.getInt("num"));
+				bean.setSub(rs.getString("sub"));
+				bean.setName(rs.getString("name"));
+				bean.setNalja(rs.getDate("nalja1"));
+				list.add(bean);
+			}
 		}
 	}finally{
 		if(rs!=null)rs.close();
@@ -48,10 +50,10 @@
 	for(Bbs06Bean bean:list){
 	%>
 	<tr>
-		<td><%=bean.getNum() %></td>
-		<td><%=bean.getSub() %></td>
-		<td><%=bean.getName() %></td>
-		<td><%=bean.getNalja() %></td>
+		<td><a href="detail.jsp?idx=<%=bean.getNum() %>"><%=bean.getNum() %></a></td>
+		<td><a href="detail.jsp?idx=<%=bean.getNum() %>"><%=bean.getSub() %></a></td>
+		<td><a href="detail.jsp?idx=<%=bean.getNum() %>"><%=bean.getName() %></a></td>
+		<td><a href="detail.jsp?idx=<%=bean.getNum() %>"><%=bean.getNalja() %></a></td>
 	</tr>
 	<%}
 	%>
