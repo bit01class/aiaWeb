@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+			<!-- 매 페이지마다 바뀌는 부분(끝) -->
+			</td>	
+		</tr>
+		<tr>
+			<td bgcolor="gray">
+(주)비트컴퓨터<br>
+Copyright &copy; 비트캠프 All rights reserved.<br>
+			</td>	
+		</tr>
+	</table>
+	<%@ page import="java.sql.*" %>
+	<%!
+	String driver="oracle.jdbc.driver.OracleDriver";
+	String url="jdbc:oracle:thin:@localhost:1521:xe";
+	String user="scott";
+	String password="tiger";
+	
+	Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	%>
