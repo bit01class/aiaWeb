@@ -4,8 +4,8 @@
 		<tr>
 			<td align="center" bgcolor="gray">
 				<a href="<%=path %>index.jsp">[HOME]</a>
-				<a href="intro.jsp">[INTRO]</a>
-				<a href="bbs1/list.jsp">[BBS1]</a>
+				<a href="<%=path %>intro.jsp">[INTRO]</a>
+				<a href="<%=path %>bbs1/list.jsp">[BBS1]</a>
 				<a href="#">[BBS2]</a>
 			</td>	
 		</tr>

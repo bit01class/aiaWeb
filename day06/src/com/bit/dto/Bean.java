@@ -20,8 +20,8 @@ public class Bean {
 		this.id = id;
 	}
 	public String getSub() {
-		if(sub.length()>5) 
-			return sub.substring(0,5)+"...";
+//		if(sub.length()>5) 
+//			return sub.substring(0,5)+"...";
 		return sub;
 	}
 	public void setSub(String sub) {

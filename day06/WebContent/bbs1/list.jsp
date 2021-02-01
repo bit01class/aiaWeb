@@ -56,7 +56,7 @@ String sql="select num,sub,id,nalja from bbs05 order by num desc";
 	</tr>
 	<%}%>	
 </table>
-
+<a href="add.jsp">[ют ╥б]</a>
 
 <%@ include file="../template/footer.jspf" %>
 </body>
