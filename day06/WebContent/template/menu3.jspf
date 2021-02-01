@@ -6,7 +6,7 @@
 				<a href="<%=path %>index.jsp">[HOME]</a>
 				<a href="<%=path %>intro.jsp">[INTRO]</a>
 				<a href="<%=path %>bbs1/list.jsp">[BBS1]</a>
-				<a href="#">[BBS2]</a>
+				<a href="<%=path %>bbs2/list.jsp">[BBS2]</a>
 			</td>	
 		</tr>
 		<tr>
