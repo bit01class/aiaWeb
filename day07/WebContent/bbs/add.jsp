@@ -13,33 +13,32 @@
 <jsp:include page="../template/menu.jsp">
 	<jsp:param value="../" name="path"/>
 </jsp:include>
-<h1>리스트 페이지</h1>
-<table width="80%" align="center" border="1" cellspacing="0">
-	<tr>
-		<th>번호</th>
-		<th>제목</th>
-		<th>이름</th>
-		<th>날짜</th>
-	</tr>
-	<%
-	java.util.ArrayList<com.bit.bbs05.dto.Bbs05Dto> list;
-	list=com.bit.bbs05.dao.Bbs05Dao.selectAll();
-	for(com.bit.bbs05.dto.Bbs05Dto bean:list){
-	%>
-	<tr>
-		<td><%=bean.getNum() %></td>
-		<td><%=bean.getSub() %></td>
-		<td><%=bean.getId() %></td>
-		<td><%=bean.getNalja() %></td>
-	</tr>
-	<%} %>
-</table>
-<a href="add.jsp">[입 력]</a>
+<h1>입력 페이지</h1>
+<form action="insert.jsp">
+	<table align="center">
+		<tr>
+			<td>제목</td>
+			<td><input type="text" name="sub"></td>
+		</tr>
+		<tr>
+			<td>글쓴이</td>
+			<td><input type="text" name="id"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td><textarea name="content"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<input type="submit" value="입 력">
+			<input type="reset" value="취 소">
+			</td>
+		</tr>
+	</table>
+</form>
 <jsp:include page="../template/footer.jsp"></jsp:include>
 </body>
 </html>
-
-
 
 
 

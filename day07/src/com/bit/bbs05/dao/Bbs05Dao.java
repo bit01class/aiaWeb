@@ -13,6 +13,28 @@ public class Bbs05Dao {
 	static Connection conn;
 	static PreparedStatement pstmt;
 	static ResultSet rs;
+	
+public static void insertOne(String sub,String content,String id) {
+	String sql="insert into bbs05 values "
+		+" (bbs05_seq.nextval,?,?,sysdate,?)";
+	try {
+		conn=MyOracle.getConnection();
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, sub);
+		pstmt.setString(2, content);
+		pstmt.setString(3, id);
+		pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(pstmt!=null)pstmt.close();
+			if(conn!=null)conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}
 
 public static ArrayList<Bbs05Dto> selectAll() {
 	ArrayList<Bbs05Dto> list=new ArrayList<Bbs05Dto>();
