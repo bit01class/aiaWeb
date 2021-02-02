@@ -14,6 +14,7 @@ if(p==null) pname="main.jsp";
 else if(p.equals("intro")) pname="intro.jsp";
 else if(p.equals("list")) pname="bbs/list.jsp";
 else if(p.equals("add")) pname="bbs/add.jsp";
+else if(p.equals("detail")) pname="bbs/detail.jsp";
 %>
 <table width="800" align="center">
 	<tr>
@@ -29,7 +30,12 @@ else if(p.equals("add")) pname="bbs/add.jsp";
 	</tr>
 	<tr>
 		<td>
-		<jsp:include page="<%=pname %>"></jsp:include>
+		<jsp:include page="<%=pname %>">
+			<jsp:param value="oracle.jdbc.OracleDriver" name="driver"/>
+			<jsp:param value="jdbc:oracle:thin:@localhost:1521:xe" name="url"/>
+			<jsp:param value="scott" name="user"/>
+			<jsp:param value="tiger" name="password"/>
+		</jsp:include>
 		</td>
 	</tr>
 	<tr align="center" bgcolor="gray">

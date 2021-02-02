@@ -31,7 +31,7 @@ BEGIN
 END;
 /
 */
-String sql="{call bbs05_insert('"+sub+"','"+id+"','"+content+"')}";
+String sql="{call bbs05_insert(?,?,?)}";
 
 java.sql.Connection conn=null;
 CallableStatement cstmt=null;
@@ -39,9 +39,13 @@ try{
 	Class.forName(driver);
 	conn=java.sql.DriverManager.getConnection(url,user,password);
 	cstmt=conn.prepareCall(sql);
+	cstmt.setString(1, sub);
+	cstmt.setString(2, id);
+	cstmt.setString(3, content);
 	cstmt.execute();
 }finally{
-	
+	if(cstmt!=null)cstmt.close();
+	if(conn!=null)conn.close();
 }
 
 response.sendRedirect("../?p=list");

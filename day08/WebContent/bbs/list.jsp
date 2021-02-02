@@ -17,26 +17,35 @@
 	</tr>
 	<%
 	String sql="select * from bbs05 order by num desc";
-	String driver="oracle.jdbc.OracleDriver";
-	String url="jdbc:oracle:thin:@localhost:1521:xe";
-	String user="scott";
-	String password="tiger";
-	
+	String driver=request.getParameter("driver");
+	String url=request.getParameter("url");
+	String user=request.getParameter("user");
+	String password=request.getParameter("password");
+	/*
+	create or replace procedure bbs05_list
+	(cur out sys_refcursor)
+	is
+	begin
+		open cur for select * from bbs05 order by num;
+	end;
+	*/
 	java.sql.Connection conn=null;
-	java.sql.PreparedStatement pstmt=null;
+	java.sql.CallableStatement cstmt=null;
 	java.sql.ResultSet rs=null;
 	try{
 		Class.forName(driver);
 		conn=java.sql.DriverManager.getConnection(url,user,password);
-		pstmt=conn.prepareStatement(sql);
-		rs=pstmt.executeQuery();
+		cstmt=conn.prepareCall("{call bbs05_list(?)}");
+		cstmt.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+		cstmt.execute();
+		rs=(java.sql.ResultSet)cstmt.getObject(1);
 		while(rs.next()){
 	%>
 	<tr>
-		<td><%=rs.getInt("num") %></td>
-		<td><%=rs.getString("sub") %></td>
-		<td><%=rs.getString("id") %></td>
-		<td><%=rs.getDate("nalja") %></td>
+		<td><a href="./?p=detail&num=<%=rs.getInt("num") %>"><%=rs.getInt("num") %></a></td>
+		<td><a href="./?p=detail&num=<%=rs.getInt("num") %>"><%=rs.getString("sub") %></a></td>
+		<td><a href="./?p=detail&num=<%=rs.getInt("num") %>"><%=rs.getString("id") %></a></td>
+		<td><a href="./?p=detail&num=<%=rs.getInt("num") %>"><%=rs.getDate("nalja") %></a></td>
 	</tr>
 	<%
 		}
