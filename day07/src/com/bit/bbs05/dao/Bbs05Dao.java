@@ -13,6 +13,36 @@ public class Bbs05Dao {
 	static Connection conn;
 	static PreparedStatement pstmt;
 	static ResultSet rs;
+
+public static Bbs05Dto selectOne(int num) {
+	Bbs05Dto bean=new Bbs05Dto();
+	String sql="select * from bbs05 where num=?";
+	try {
+		conn=MyOracle.getConnection();
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1, num);
+		rs=pstmt.executeQuery();
+		if(rs.next()) {
+			bean.setNalja(rs.getTimestamp("nalja"));
+			bean.setNum(rs.getInt("num"));
+			bean.setId(rs.getString("id"));
+			bean.setSub(rs.getString("sub"));
+			bean.setContent(rs.getString("content"));
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(rs!=null)rs.close();
+			if(pstmt!=null)pstmt.close();
+			if(conn!=null)conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return bean;
+}
+	
 	
 public static void insertOne(String sub,String content,String id) {
 	String sql="insert into bbs05 values "
