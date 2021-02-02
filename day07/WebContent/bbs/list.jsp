@@ -27,10 +27,10 @@
 	for(com.bit.bbs05.dto.Bbs05Dto bean:list){
 	%>
 	<tr>
-		<td><%=bean.getNum() %></td>
-		<td><%=bean.getSub() %></td>
-		<td><%=bean.getId() %></td>
-		<td><%=bean.getNalja() %></td>
+		<td><a href="detail.jsp?num=<%=bean.getNum() %>"><%=bean.getNum() %></a></td>
+		<td><a href="detail.jsp?num=<%=bean.getNum() %>"><%=bean.getSub() %></a></td>
+		<td><a href="detail.jsp?num=<%=bean.getNum() %>"><%=bean.getId() %></a></td>
+		<td><a href="detail.jsp?num=<%=bean.getNum() %>"><%=bean.getNalja() %></a></td>
 	</tr>
 	<%} %>
 </table>

@@ -14,6 +14,28 @@ public class Bbs05Dao {
 	static PreparedStatement pstmt;
 	static ResultSet rs;
 
+public static int updateOne(Bbs05Dto bean) {
+	String sql="update bbs05 set sub=?,content=? where num=?";
+	try {
+		conn=MyOracle.getConnection();
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setString(1, bean.getSub());
+		pstmt.setString(2, bean.getContent());
+		pstmt.setInt(3, bean.getNum());
+		return pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(pstmt!=null)pstmt.close();
+			if(conn!=null)conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return 0;
+}	
+	
 public static Bbs05Dto selectOne(int num) {
 	Bbs05Dto bean=new Bbs05Dto();
 	String sql="select * from bbs05 where num=?";

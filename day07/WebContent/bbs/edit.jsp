@@ -18,34 +18,39 @@
 <%
 bean=com.bit.bbs05.dao.Bbs05Dao.selectOne(bean.getNum());
 %>
-<h1>상세 페이지</h1>
-<table width="400" align="center">
-	<tr>
-		<td>글번호</td>
-		<td><%=bean.getNum() %></td>
-		<td>글쓴이</td>
-		<td><%=bean.getId() %></td>
-		<td>날짜</td>
-		<td><%=bean.getNalja() %></td>
-	</tr>
-	<tr>
-		<td>제목</td>
-		<td colspan="5"><%=bean.getSub() %></td>
-	</tr>
-	<tr>
-		<td>내용</td>
-		<td colspan="5"><%=bean.getContent() %></td>
-	</tr>
-	<tr>
-		<td colspan="6">
-			<a href="edit.jsp?num=<%=bean.getNum()%>">[수 정]</a>
-			<a href="#">[삭 제]</a>
-		</td>
-	</tr>
-</table>
+<h1>수정 페이지</h1>
+<form action="update.jsp">
+	<table width="400" align="center">
+		<tr>
+			<td>글번호</td>
+			<td><input type="text" name="num" value="<%=bean.getNum() %>" readonly="readonly"></td>
+			<td>글쓴이</td>
+			<td><%=bean.getId() %></td>
+			<td>날짜</td>
+			<td><%=bean.getNalja() %></td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td colspan="5"><input type="text" name="sub" value="<%=bean.getSub()%>"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td colspan="5"><textarea name="content"><%=bean.getContent() %></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="6">
+				<input type="submit" value="수 정">
+				<input type="reset" value="초기화">
+			</td>
+		</tr>
+	</table>
+</form>
 <jsp:include page="../template/footer.jsp"></jsp:include>
 </body>
 </html>
+
+
+
 
 
 
